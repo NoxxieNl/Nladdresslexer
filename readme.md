@@ -1,4 +1,4 @@
-# Dutch addres parser
+# Dutch address parser
 
 Dutch address parser is a library to parse address lines into the segments `street`, `number` and `affix`.
 
