@@ -39,7 +39,7 @@ echo $parser->getOriginalString();
 
 ## Testing
 
-Testing is done using `pest`.
+Testing is done using `pest`. (https://github.com/pestphp/pest)
 
 ```bash
 ./vendor/bin/pest
