@@ -100,13 +100,14 @@ class AddressParser
         if (! is_null($lookahead = $this->lexer->lookahead)) {
 
             // If there is space right behind a delimiter we assume the next item is going to be shown.
+            // This is only when we are not in the street look up.
             if ($lookahead['type'] == CharacterTypeLexer::T_SPACE && $this->lookingFor != self::T_STREET) {
                 $this->moveToNextLooking();
                 $this->lexer->moveNextBy(2);
             }
 
-            // When we are in the address and a delimiter string is found with a space behind it BUT the next sequence is not the 
-            // housenumber, then just continue collection tokens, otherwise move on to the next look up.
+            // When we are in the street lookup and a delimiter string is found with a space behind it BUT the next sequence is not the 
+            // housenumber, then just continue collecting tokens, otherwise move on to the next look up.
             elseif ($lookahead['type'] == CharacterTypeLexer::T_SPACE && $this->lookingFor == self::T_STREET) {
                 if (! $this->parseSpaceToken(true)) {
                     $this->moveToNextLooking();
@@ -158,6 +159,8 @@ class AddressParser
                     return $stillStreet;
                 }
 
+                // Check if we the specified look ahead token is still part of the street or not, if not move on
+                // if it is add it to the street look up.
                 if (! $stillStreet) {
                     $this->moveToNextLooking();
                 } else {
@@ -165,6 +168,7 @@ class AddressParser
                     $stillStreet = false;
                 }
             } else {
+                // We only want this behaviour when the look up is on the number part.
                 if ($this->lookingFor == self::T_NUMBER) {
                     $this->moveToNextLooking();
                 } else {
