@@ -100,11 +100,18 @@ class AddressParser
         if (! is_null($lookahead = $this->lexer->lookahead)) {
 
             // If there is space right behind a delimiter we assume the next item is going to be shown.
-            if ($lookahead['type'] == CharacterTypeLexer::T_SPACE) {
+            if ($lookahead['type'] == CharacterTypeLexer::T_SPACE && $this->lookingFor != self::T_STREET) {
                 $this->moveToNextLooking();
+                $this->lexer->moveNextBy(2);
+            }
 
-                $this->lexer->moveNext();
-                $this->lexer->moveNext();
+            // When we are in the address and a delimiter string is found with a space behind it BUT the next sequence is not the 
+            // housenumber, then just continue collection tokens, otherwise move on to the next look up.
+            elseif ($lookahead['type'] == CharacterTypeLexer::T_SPACE && $this->lookingFor == self::T_STREET) {
+                if (! $this->parseSpaceToken(true)) {
+                    $this->moveToNextLooking();
+                    $this->lexer->moveNextBy(2);
+                }
             } else {
                 // When there is a delimeter found in the number segment move the rest to the affix section.
                 if ($this->lookingFor == self::T_NUMBER) {
@@ -116,9 +123,10 @@ class AddressParser
     }
 
     /**
-     * @return void
+     * @var bool $returnBool
+     * @return mixed
      */
-    protected function parseSpaceToken() : void
+    protected function parseSpaceToken(bool $returnBool  = false)
     {
         $stillStreet = false;
 
@@ -143,6 +151,11 @@ class AddressParser
                             }
                         }
                     }
+                }
+
+                // When return bool is active, only return if the giving token is still part of the street or not.
+                if ($returnBool) {
+                    return $stillStreet;
                 }
 
                 if (! $stillStreet) {

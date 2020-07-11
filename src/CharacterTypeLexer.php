@@ -50,8 +50,25 @@ class CharacterTypeLexer extends AbstractLexer
         elseif ($value === ' ') {
             return self::T_SPACE;
         }
+
+        elseif (! preg_match('/\p{L}+/', $value) && ! preg_match('/[0-9]/', $value)) {
+            return self::T_LETTER;
+        }
+
         else {
             return self::T_UNKNOWN;
+        }
+    }
+
+    /**
+     * Move the pointer the given amount of items.
+     *
+     * @param integer $amount
+     * @return void
+     */
+    public function moveNextBy(int $amount) {
+        for ($i = 1; $i <= $amount; $i++) {
+            $this->moveNext();
         }
     }
 }

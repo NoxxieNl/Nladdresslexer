@@ -151,6 +151,16 @@ $addresses = [
         'street' => 'September 1944-straat',
         'number' => '2',
         'affix' => null,
+    ],
+    'Station - straat voor de brug 40' => [
+        'street' => 'Station - straat voor de brug',
+        'number' => '40',
+        'affix' => null,
+    ],
+    'Station , straat voor de brug- 40-' => [
+        'street' => 'Station , straat voor de brug',
+        'number' => '40',
+        'affix' => null,
     ]
 ];
 
