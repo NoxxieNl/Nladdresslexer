@@ -33,7 +33,7 @@ class AddressParser
     public function __construct(string $string)
     {
         $this->lexer = new CharacterTypeLexer;
-        $this->string = $string;
+        $this->string = preg_replace('/\s+/', ' ', $string);
     }
 
     /**
