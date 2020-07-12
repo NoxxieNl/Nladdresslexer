@@ -101,7 +101,7 @@ class AddressParser
                 // When the look up is the housenumber and the next token is a letter move to the next look up (suffix).
                 if (! is_null($lookahead = $this->lexer->lookahead)) {
                     if ($lookahead['type'] == CharacterTypeLexer::T_LETTER && 
-                        $this->lookUp == self::T_NUMBER && $this->getNextLookupItem() == self::T_SUFFIX && $this->getPreviousLookupItem() == self::T_STREET) {
+                        $this->lookUp == self::T_NUMBER && $this->getNextLookupItem() == self::T_SUFFIX) {
                         
                         $this->moveToNextLookUp();
                     }
