@@ -60,6 +60,26 @@ echo $parser->getSuffix() . "\r\n"; // A
 echo $parser->getOriginalString();
 ```
 
+## Usage for splitting only numbers
+Sometimes you may wish to split only the `number` and `suffix`. You can do so by setting the formatting of the parser to the following before executing the parsing:
+```php
+AddressParser::setAddressFormat([
+    AddressParser::T_NUMBER,
+    AddressParser::T_SUFFIX,
+]);
+```
+
+**Be carefull**: When setting the address format, it is changed for every parsing to beyond that point. Reset the format to its original
+state when you want to parse a full address:
+
+```php
+AddressParser::setAddressFormat([
+    AddressParset::T_STREET,
+    AddressParser::T_NUMBER,
+    AddressParser::T_SUFFIX,
+]);
+```
+
 ## Testing
 
 Testing is done using `pest`. (https://github.com/pestphp/pest)
