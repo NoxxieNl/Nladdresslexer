@@ -8,7 +8,7 @@ class AddressParser
 {
     const T_STREET = 0;
     const T_NUMBER = 1;
-    const T_AFFIX = 2;
+    const T_SUFFIX = 2;
 
     /**
      * @var \Noxxienl\Nladdresslexer\CharacterTypeLexer
@@ -80,7 +80,7 @@ class AddressParser
                 // Nothing special just add it to the current look up.
                 $this->splittedData[$this->lookingFor][] = $this->lexer->token['value'];
 
-                // When the look up is the housenumber and the next token is a letter move to the next look up (affix).
+                // When the look up is the housenumber and the next token is a letter move to the next look up (suffix).
                 if (! is_null($lookahead = $this->lexer->lookahead)) {
                     if ($lookahead['type'] == CharacterTypeLexer::T_LETTER && $this->lookingFor == self::T_NUMBER) {
                         $this->moveToNextLooking();
@@ -114,7 +114,7 @@ class AddressParser
                     $this->lexer->moveNextBy(2);
                 }
             } else {
-                // When there is a delimeter found in the number segment move the rest to the affix section.
+                // When there is a delimeter found in the number segment move the rest to the suffix section.
                 if ($this->lookingFor == self::T_NUMBER) {
                     $this->moveToNextLooking();
                     $this->lexer->moveNext();
@@ -185,8 +185,8 @@ class AddressParser
      */
     protected function moveToNextLooking() : void
     {
-        // When we are already on the last looking for, just return and add everything to the affix.
-        if ($this->lookingFor == self::T_AFFIX) {
+        // When we are already on the last looking for, just return and add everything to the suffix.
+        if ($this->lookingFor == self::T_SUFFIX) {
             return;
         }
 
@@ -199,7 +199,7 @@ class AddressParser
         }
 
         elseif ($this->lookingFor == self::T_NUMBER) {
-            $this->lookingFor = self::T_AFFIX;
+            $this->lookingFor = self::T_SUFFIX;
         }
         
         else {
@@ -230,11 +230,11 @@ class AddressParser
     /**
      * @return string|null
      */
-    public function getAffix() : ?string
+    public function getSuffix() : ?string
     {
-        return is_null($this->splittedData[self::T_AFFIX])
+        return is_null($this->splittedData[self::T_SUFFIX])
                ? null
-               : implode('', $this->splittedData[self::T_AFFIX]);
+               : implode('', $this->splittedData[self::T_SUFFIX]);
     }
 
     /**
