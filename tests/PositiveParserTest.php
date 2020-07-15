@@ -161,7 +161,7 @@ $addresses = [
         'street' => 'Station , straat voor de brug',
         'number' => '40',
         'suffix' => null,
-    ]
+    ],
 ];
 
 foreach ($addresses as $address => $evaluated) {

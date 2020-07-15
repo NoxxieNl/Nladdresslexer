@@ -71,4 +71,27 @@ class CharacterTypeLexer extends AbstractLexer
             $this->moveNext();
         }
     }
+
+    /**
+     * Tells the lexer to peek until the given token is found.
+     *
+     * @param mixed $type
+     * @return void
+     */
+    public function peekUntil($type)
+    {
+        while (true) {
+            $peek = $this->peek();
+
+            if (is_null($peek)) {
+                break;
+            }
+
+            if ($peek['type'] === $type) {
+                return $peek;
+            }
+        }
+
+        return ! isset($peek) ? null : $peek;
+    }
 }

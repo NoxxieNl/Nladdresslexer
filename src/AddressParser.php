@@ -168,7 +168,14 @@ class AddressParser
                         if ($peek['type'] == CharacterTypeLexer::T_SPACE) {
                             if (! is_null($numberPeek = $this->lexer->peek())) {
                                 if ($numberPeek['type'] == CharacterTypeLexer::T_NUMBER) {
-                                    $stillStreet = true;
+
+                                    // Check if the next number is the last segment of the string if it is the number we a are evaluating
+                                    // when it is the number we are evaluating is the housenumber.
+                                    // TODO: Fix this where Both "Plein 1924 12" and "Brugstraat 12 300" works (where 12 is the housenumber
+                                    // but the 300 is the suffix)
+                                    //if (! is_null($this->lexer->peekUntil(CharacterTypeLexer::T_SPACE))) {
+                                        $stillStreet = true;
+                                    //}
                                 }
                             }
                         }
