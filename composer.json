@@ -2,7 +2,6 @@
     "name": "noxxienl/nladdresslexer",
     "description": "Package to evaluate and parse dutch addresses",
     "type": "library",
-    "minimum-stability": "dev",
     "prefer-stable": true,
 
     "require": {
