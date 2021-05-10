@@ -67,7 +67,9 @@ class AddressParser
         }
 
         // Reset the lexer to original state.
-        $this->lexer->reset();
+        $this->resetLexer();
+
+        // Startup the lexer.
         $this->lexer->setInput($this->string);
         $this->lexer->moveNext();
 
@@ -76,7 +78,6 @@ class AddressParser
 
         // Loop till nothing is left.
         while (true) {
-
             // When there is no next token, break out of the loop.
             if (! $this->lexer->lookahead) {
                 break;
@@ -116,6 +117,24 @@ class AddressParser
         }
 
         return true;
+    }
+
+    /**
+     * Resets the lexer to original settings.
+     *
+     * @return void
+     */
+    protected function resetLexer() : void
+    {
+        $this->lexer->reset();
+
+        $this->splittedData = [
+            'street' => null,
+            'number' => null,
+            'suffix' => null,
+        ];
+
+        $this->lookUp = null;
     }
 
     /**
