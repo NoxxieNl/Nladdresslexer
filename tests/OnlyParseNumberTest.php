@@ -32,18 +32,17 @@ $addresses = [
 foreach ($addresses as $number => $evaluated) {
     
     it('can parse number "'.$number.'"', function() use ($number, $evaluated) {
-
         AddressParser::setAddressFormat([
             AddressParser::T_NUMBER,
             AddressParser::T_SUFFIX,
         ]);
 
-        $parser = new AddressParser($number);
-        $parser->evaluate();
+        $parser = new AddressParser;
+        $parser->evaluate($number);
 
-        assertEquals($evaluated['street'], $parser->getStreet());
-        assertEquals($evaluated['number'], $parser->getNumber());
-        assertEquals($evaluated['suffix'], $parser->getSuffix());
+        $this->assertEquals($evaluated['street'], $parser->getStreet());
+        $this->assertEquals($evaluated['number'], $parser->getNumber());
+        $this->assertEquals($evaluated['suffix'], $parser->getSuffix());
 
     })->group('parse_only_number');
 }

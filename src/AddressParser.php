@@ -40,10 +40,9 @@ class AddressParser
      */
     private $string;
 
-    public function __construct(string $street, ?string $number = null)
+    public function __construct()
     {
         $this->lexer = new CharacterTypeLexer;
-        $this->string = preg_replace('/\s+/', ' ', $street.(! is_null($number) ? ' '.$number : null));
 
         if (count(self::$format) == 0) {
             self::$format = [
@@ -59,20 +58,27 @@ class AddressParser
      * 
      * @return boolean
      */
-    public function evaluate() : bool
+    public function evaluate(string $street, ?string $number = null) : bool
     {
+        $this->string = preg_replace('/\s+/', ' ', $street.(! is_null($number) ? ' '.$number : null));
+
         if (is_null($this->string)) {
             throw new RuntimeException('Cannot parse a empty string.');
         }
 
+        // Reset the lexer to original state.
+        $this->lexer->reset();
         $this->lexer->setInput($this->string);
         $this->lexer->moveNext();
+
+        // Move to first character.
         $this->moveToNextLookUp();
 
+        // Loop till nothing is left.
         while (true) {
 
             // When there is no next token, break out of the loop.
-            if (!$this->lexer->lookahead) {
+            if (! $this->lexer->lookahead) {
                 break;
             }
 

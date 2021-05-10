@@ -28,13 +28,14 @@ $addresses = [
 ];
 
 foreach ($addresses as $address => $evaluated) {
-    it('cannot parse address "'.$address.'"', function() use ($address, $evaluated) {
-        $parser = new AddressParser($address);
-        $parser->evaluate();
+    $parser = new AddressParser;
 
-        assertEquals($evaluated['street'], $parser->getStreet());
-        assertEquals($evaluated['number'], $parser->getNumber());
-        assertEquals($evaluated['suffix'], $parser->getSuffix());
+    it('cannot parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {  
+        $parser->evaluate($address);
+
+        $this->assertEquals($evaluated['street'], $parser->getStreet());
+        $this->assertEquals($evaluated['number'], $parser->getNumber());
+        $this->assertEquals($evaluated['suffix'], $parser->getSuffix());
 
     })->group('invalid_address_notations');
 }

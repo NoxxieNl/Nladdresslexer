@@ -8,7 +8,7 @@ Example:
 
 Will be parsed to:
 
-|Street|Nubmer|Suffix|
+|Street|Number|Suffix|
 |--|---|--|
 |Plein 1926|12|A
 
@@ -24,10 +24,8 @@ composer require "NoxxieNl\Nladdressparser"
 
 ```php
 use Noxxienl\Nladdresslexer\AddressParser;
-use NoxxieNl\Nladdresslexer\CharacterTypeLexer;
 
-$parser = new AddressParser();
-
+$parser = new AddressParser;
 $parser->evaluate('Plein 1926 12 A');
 
 echo $parser->getStreet() . "\r\n"; // Plein 1926
@@ -46,9 +44,8 @@ For example:
 
 ```php
 use Noxxienl\Nladdresslexer\AddressParser;
-use NoxxieNl\Nladdresslexer\CharacterTypeLexer;
 
-$parser = new AddressParser();
+$parser = new AddressParser;
 
 list($number, $street) = explode(', ', '50 A, Ringweg Zuid / Rijksweg A20');
 $parser->evaluate($street, $number);
