@@ -79,7 +79,7 @@ AddressParser::setAddressFormat([
 
 ## Testing
 
-Testing is done using `pest`. (https://github.com/pestphp/pest)
+Testing is done using `pestphp`. (https://pestphp.com/)
 
 ```bash
 ./vendor/bin/pest
