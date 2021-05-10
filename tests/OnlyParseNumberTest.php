@@ -31,6 +31,7 @@ $addresses = [
 
 foreach ($addresses as $number => $evaluated) {
     
+    /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
     it('can parse number "'.$number.'"', function() use ($number, $evaluated) {
         AddressParser::setAddressFormat([
             AddressParser::T_NUMBER,

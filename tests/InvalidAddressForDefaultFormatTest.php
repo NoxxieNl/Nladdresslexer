@@ -30,6 +30,7 @@ $addresses = [
 foreach ($addresses as $address => $evaluated) {
     $parser = new AddressParser;
 
+    /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
     it('cannot parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {  
         $parser->evaluate($address);
 

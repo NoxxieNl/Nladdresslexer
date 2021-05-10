@@ -26,6 +26,7 @@ $addresses = [
 
 foreach ($addresses as $address => $evaluated) {
     
+    /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
     it('can parse address "'.$address.'"', function() use ($address, $evaluated) {
 
         list($number, $street) = explode(', ', $address);
