@@ -164,15 +164,16 @@ $addresses = [
     ],
 ];
 
+$parser = new AddressParser;
 foreach ($addresses as $address => $evaluated) {
-    
-    it('can parse address "'.$address.'"', function() use ($address, $evaluated) {
-        $parser = new AddressParser($address);
-        $parser->evaluate();
 
-        assertEquals($evaluated['street'], $parser->getStreet());
-        assertEquals($evaluated['number'], $parser->getNumber());
-        assertEquals($evaluated['suffix'], $parser->getSuffix());
+    /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
+    it('can parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {
+        $parser->evaluate($address);
+
+        $this->assertEquals($evaluated['street'], $parser->getStreet());
+        $this->assertEquals($evaluated['number'], $parser->getNumber());
+        $this->assertEquals($evaluated['suffix'], $parser->getSuffix());
 
     })->group('valid_address_notations');
 }

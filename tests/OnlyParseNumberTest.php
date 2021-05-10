@@ -29,21 +29,21 @@ $addresses = [
     ]
 ];
 
+AddressParser::setAddressFormat([
+    AddressParser::T_NUMBER,
+    AddressParser::T_SUFFIX,
+]);
+
+$parser = new AddressParser;
 foreach ($addresses as $number => $evaluated) {
     
-    it('can parse number "'.$number.'"', function() use ($number, $evaluated) {
+    /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
+    it('can parse number "'.$number.'"', function() use ($number, $evaluated, $parser) {
+        $parser->evaluate($number);
 
-        AddressParser::setAddressFormat([
-            AddressParser::T_NUMBER,
-            AddressParser::T_SUFFIX,
-        ]);
-
-        $parser = new AddressParser($number);
-        $parser->evaluate();
-
-        assertEquals($evaluated['street'], $parser->getStreet());
-        assertEquals($evaluated['number'], $parser->getNumber());
-        assertEquals($evaluated['suffix'], $parser->getSuffix());
+        $this->assertEquals($evaluated['street'], $parser->getStreet());
+        $this->assertEquals($evaluated['number'], $parser->getNumber());
+        $this->assertEquals($evaluated['suffix'], $parser->getSuffix());
 
     })->group('parse_only_number');
 }

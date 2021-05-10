@@ -2,13 +2,14 @@
 
 Dutch address parser is a library to parse address lines into the segments `street`, `number` and `suffix`.
 
-Example:
+![packagist](https://img.shields.io/packagist/v/NoxxieNl/Nladdresslexer) ![version](https://img.shields.io/github/v/release/noxxienl/nladdresslexer)
 
+Example:
 `Plein 1926 12 A`
 
 Will be parsed to:
 
-|Street|Nubmer|Suffix|
+|Street|Number|Suffix|
 |--|---|--|
 |Plein 1926|12|A
 
@@ -17,17 +18,15 @@ Will be parsed to:
 Composer is used to install this package
 
 ```bash
-composer require "NoxxieNl\Nladdressparser"
+composer require noxxienl/nladdressparser
 ```
 
 ## Usage
 
 ```php
 use Noxxienl\Nladdresslexer\AddressParser;
-use NoxxieNl\Nladdresslexer\CharacterTypeLexer;
 
-$parser = new AddressParser();
-
+$parser = new AddressParser;
 $parser->evaluate('Plein 1926 12 A');
 
 echo $parser->getStreet() . "\r\n"; // Plein 1926
@@ -46,9 +45,8 @@ For example:
 
 ```php
 use Noxxienl\Nladdresslexer\AddressParser;
-use NoxxieNl\Nladdresslexer\CharacterTypeLexer;
 
-$parser = new AddressParser();
+$parser = new AddressParser;
 
 list($number, $street) = explode(', ', '50 A, Ringweg Zuid / Rijksweg A20');
 $parser->evaluate($street, $number);
@@ -82,7 +80,7 @@ AddressParser::setAddressFormat([
 
 ## Testing
 
-Testing is done using `pest`. (https://github.com/pestphp/pest)
+Testing is done using `pestphp`. (https://pestphp.com/)
 
 ```bash
 ./vendor/bin/pest
@@ -94,6 +92,9 @@ To run the tests.
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Bugs
+Submit a issue to the github repository and if you can find the fix be sure to also submit a pull request!
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
