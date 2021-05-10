@@ -24,14 +24,13 @@ $addresses = [
     ]
 ];
 
+$parser = new AddressParser;
 foreach ($addresses as $address => $evaluated) {
     
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
-    it('can parse address "'.$address.'"', function() use ($address, $evaluated) {
+    it('can parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {
 
         list($number, $street) = explode(', ', $address);
-
-        $parser = new AddressParser;
         $parser->evaluate($street, $number);
 
         $this->assertEquals($evaluated['street'], $parser->getStreet());

@@ -29,16 +29,16 @@ $addresses = [
     ]
 ];
 
+AddressParser::setAddressFormat([
+    AddressParser::T_NUMBER,
+    AddressParser::T_SUFFIX,
+]);
+
+$parser = new AddressParser;
 foreach ($addresses as $number => $evaluated) {
     
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
-    it('can parse number "'.$number.'"', function() use ($number, $evaluated) {
-        AddressParser::setAddressFormat([
-            AddressParser::T_NUMBER,
-            AddressParser::T_SUFFIX,
-        ]);
-
-        $parser = new AddressParser;
+    it('can parse number "'.$number.'"', function() use ($number, $evaluated, $parser) {
         $parser->evaluate($number);
 
         $this->assertEquals($evaluated['street'], $parser->getStreet());

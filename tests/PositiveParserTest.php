@@ -164,11 +164,11 @@ $addresses = [
     ],
 ];
 
+$parser = new AddressParser;
 foreach ($addresses as $address => $evaluated) {
 
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
-    it('can parse address "'.$address.'"', function() use ($address, $evaluated) {
-        $parser = new AddressParser;
+    it('can parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {
         $parser->evaluate($address);
 
         $this->assertEquals($evaluated['street'], $parser->getStreet());

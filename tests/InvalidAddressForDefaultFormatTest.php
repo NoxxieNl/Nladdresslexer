@@ -3,32 +3,39 @@ use Noxxienl\Nladdresslexer\AddressParser;
 
 $addresses = [
     '12, stationstraat' => [
-        'street' => '12',
-        'number' => '0',
-        'suffix' => 'tationstraat',
+        'street' => null,
+        'number' => '12',
+        'suffix' => 'stationstraat',
     ],
 
     '61, Plein 1926 A' => [
-        'street' => '61, Plein',
-        'number' => '1926',
-        'suffix' => 'A'
+        'street' => null,
+        'number' => '61',
+        'suffix' => 'Plein1926 A'
     ],
 
     '123 Main Street Smallville, Idaho 12345' => [
-        'street' => '123 Main Street Smallville, Idaho',
-        'number' => '12345',
-        'suffix' => null,
+        'street' => null,
+        'number' => '123',
+        'suffix' => 'Main Street SmallvilleIdaho12345',
     ],
 
     '118 rue Marguerite' => [
-        'street' => '118 rue Marguerite',
-        'number' => null,
-        'suffix' => null,
+        'street' => null,
+        'number' => '118',
+        'suffix' => 'rue Marguerite',
     ]
 ];
 
+// Set correct address format.
+AddressParser::setAddressFormat([
+    AddressParser::T_STREET,
+    AddressParser::T_NUMBER,
+    AddressParser::T_SUFFIX,
+]);
+
+$parser = new AddressParser;
 foreach ($addresses as $address => $evaluated) {
-    $parser = new AddressParser;
 
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
     it('cannot parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {  
