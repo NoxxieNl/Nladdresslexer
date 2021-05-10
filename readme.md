@@ -2,8 +2,9 @@
 
 Dutch address parser is a library to parse address lines into the segments `street`, `number` and `suffix`.
 
-Example:
+![packagist](https://img.shields.io/packagist/v/NoxxieNl/Nladdresslexer) ![version](https://img.shields.io/github/v/release/noxxienl/nladdresslexer)
 
+Example:
 `Plein 1926 12 A`
 
 Will be parsed to:
@@ -17,7 +18,7 @@ Will be parsed to:
 Composer is used to install this package
 
 ```bash
-composer require "NoxxieNl\Nladdressparser"
+composer require noxxienl/nladdressparser
 ```
 
 ## Usage
@@ -91,6 +92,9 @@ To run the tests.
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Bugs
+Submit a issue to the github repository and if you can find the fix be sure to also submit a pull request!
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
