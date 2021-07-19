@@ -62,8 +62,8 @@ echo $parser->getOriginalString();
 Sometimes you may wish to split only the `number` and `suffix`. You can do so by setting the formatting of the parser to the following before executing the parsing:
 ```php
 Parser::setAddressFormat([
-Parser::T_NUMBER,
-Parser::T_SUFFIX,
+    Parser::T_NUMBER,
+    Parser::T_SUFFIX,
 ]);
 ```
 
