@@ -1,11 +1,11 @@
 <?php
-namespace Noxxienl\Nladdresslexer;
+namespace noxxienl\nladdresslexer;
 
 use Exception;
-use Noxxienl\Nladdresslexer\CharacterTypeLexer;
+use noxxienl\nladdresslexer\CharacterTypeLexer;
 use RuntimeException;
 
-class AddressParser
+class Parser
 {
     const T_STREET = 'street';
     const T_NUMBER = 'number';
@@ -17,7 +17,7 @@ class AddressParser
     protected static $format = [];
 
     /**
-     * @var \Noxxienl\Nladdresslexer\CharacterTypeLexer
+     * @var \noxxienl\nladdresslexer\CharacterTypeLexer
      */
     private $lexer;
 

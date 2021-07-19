@@ -1,5 +1,5 @@
 <?php
-namespace Noxxienl\Nladdresslexer;
+namespace noxxienl\nladdresslexer;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 

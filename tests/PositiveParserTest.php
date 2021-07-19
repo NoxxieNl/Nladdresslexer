@@ -1,5 +1,5 @@
 <?php
-use Noxxienl\Nladdresslexer\AddressParser;
+use noxxienl\nladdresslexer\Parser;
 
 $addresses = [
     'Dorpstraat 2' => [
@@ -164,7 +164,7 @@ $addresses = [
     ],
 ];
 
-$parser = new AddressParser;
+$parser = new Parser;
 foreach ($addresses as $address => $evaluated) {
 
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */

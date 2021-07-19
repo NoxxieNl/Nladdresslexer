@@ -1,5 +1,5 @@
 <?php
-namespace Noxxienl\Nladdresslexer\Repositories;
+namespace noxxienl\nladdresslexer\Repositories;
 
 class StreetsWithEndNumber 
 {

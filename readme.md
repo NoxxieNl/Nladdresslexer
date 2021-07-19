@@ -2,7 +2,7 @@
 
 Dutch address parser is a library to parse address lines into the segments `street`, `number` and `suffix`.
 
-![packagist](https://img.shields.io/packagist/v/NoxxieNl/Nladdresslexer) ![version](https://img.shields.io/github/v/release/noxxienl/nladdresslexer)
+![packagist](https://img.shields.io/packagist/v/noxxienl/nladdresslexer) ![version](https://img.shields.io/github/v/release/noxxienl/nladdresslexer)
 
 Example:
 `Plein 1926 12 A`
@@ -24,9 +24,9 @@ composer require noxxienl/nladdressparser
 ## Usage
 
 ```php
-use Noxxienl\Nladdresslexer\AddressParser;
+use noxxienl\nladdresslexer\Parser;
 
-$parser = new AddressParser;
+$parser = new Parser;
 $parser->evaluate('Plein 1926 12 A');
 
 echo $parser->getStreet() . "\r\n"; // Plein 1926
@@ -44,9 +44,9 @@ For example:
 `50 A, Ringweg Zuid / Rijksweg A20`
 
 ```php
-use Noxxienl\Nladdresslexer\AddressParser;
+use noxxienl\nladdresslexer\Parser;
 
-$parser = new AddressParser;
+$parser = new Parser;
 
 list($number, $street) = explode(', ', '50 A, Ringweg Zuid / Rijksweg A20');
 $parser->evaluate($street, $number);
@@ -61,9 +61,9 @@ echo $parser->getOriginalString();
 ## Usage for splitting only numbers
 Sometimes you may wish to split only the `number` and `suffix`. You can do so by setting the formatting of the parser to the following before executing the parsing:
 ```php
-AddressParser::setAddressFormat([
-    AddressParser::T_NUMBER,
-    AddressParser::T_SUFFIX,
+Parser::setAddressFormat([
+Parser::T_NUMBER,
+Parser::T_SUFFIX,
 ]);
 ```
 
@@ -71,10 +71,10 @@ AddressParser::setAddressFormat([
 state when you want to parse a full address:
 
 ```php
-AddressParser::setAddressFormat([
-    AddressParset::T_STREET,
-    AddressParser::T_NUMBER,
-    AddressParser::T_SUFFIX,
+Parser::setAddressFormat([
+    Parser::T_STREET,
+    Parser::T_NUMBER,
+    Parser::T_SUFFIX,
 ]);
 ```
 
