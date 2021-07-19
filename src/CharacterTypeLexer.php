@@ -13,12 +13,18 @@ class CharacterTypeLexer extends AbstractLexer
 
     CONST T_UNKNOWN = 99;
 
-    protected function getCatchablePatterns()
+    /**
+     * @return array<int,string>
+     */
+    protected function getCatchablePatterns() : array
     {
         return [];
     }
 
-    protected function getNonCatchablePatterns()
+    /**
+     * @return array<int,string>
+     */
+    protected function getNonCatchablePatterns() : array
     {
         return [];
     }
@@ -76,9 +82,9 @@ class CharacterTypeLexer extends AbstractLexer
      * Tells the lexer to peek until the given token is found.
      *
      * @param mixed $type
-     * @return void
+     * @return array<int,string>|null
      */
-    public function peekUntil($type)
+    public function peekUntil($type) : ?array
     {
         while (true) {
             $peek = $this->peek();

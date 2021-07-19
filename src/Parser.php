@@ -12,7 +12,7 @@ class Parser
     const T_SUFFIX = 'suffix';
 
     /**
-     * @var array
+     * @var array<int,string>
      */
     protected static $format = [];
 
@@ -22,7 +22,7 @@ class Parser
     private $lexer;
 
     /**
-     * @var array
+     * @var array<string,null|array>
      */
     private $splittedData = [
         'street' => null,
@@ -330,7 +330,7 @@ class Parser
     }
 
     /**
-     * @param array $format
+     * @param array<int,string> $format
      * @return void
      */
     public static function setAddressFormat(array $format) : void

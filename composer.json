@@ -14,7 +14,8 @@
         "doctrine/lexer": "^1.2"
     },
     "require-dev": {
-        "pestphp/pest": "^1.0.0"
+        "pestphp/pest": "^1.0.0",
+        "phpstan/phpstan": "^0.12.92"
     },
     "autoload": {
         "psr-4": {

@@ -4,7 +4,7 @@ namespace noxxienl\nladdresslexer\Repositories;
 class StreetsWithEndNumber 
 {
     /**
-     * @var array
+     * @var array<int,string> $streets
      */
     protected static $streets = [
         'plein \'40-\'45',
