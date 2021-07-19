@@ -11,6 +11,7 @@
         }
     ],
     "require": {
+        "php": "^7.4|^8.0",
         "doctrine/lexer": "^1.2"
     },
     "require-dev": {
