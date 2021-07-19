@@ -3,7 +3,6 @@
     "description": "Package to evaluate and parse dutch addresses",
     "type": "library",
     "prefer-stable": true,
-    
     "license": "MIT",
     "authors": [
         {
@@ -11,19 +10,15 @@
             "email": "info@noxxie.nl"
         }
     ],
-
     "require": {
         "doctrine/lexer": "^1.2"
     },
-
     "require-dev": {
-        "phpunit/phpunit": "^9.2",
         "pestphp/pest": "^1.0.0"
     },
-
     "autoload": {
         "psr-4": {
-            "Noxxienl\\Nladdresslexer\\" : "src/"
+            "Noxxienl\\Nladdresslexer\\": "src/"
         }
     }
 }
