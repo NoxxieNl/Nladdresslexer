@@ -3,36 +3,29 @@ use noxxienl\nladdresslexer\Parser;
 
 $addresses = [
     '12, stationstraat' => [
-        'street' => null,
-        'number' => '12',
-        'suffix' => 'stationstraat',
+        'street' => '12',
+        'number' => null,
+        'suffix' => 'tationstraat',
     ],
 
     '61, Plein 1926 A' => [
-        'street' => null,
-        'number' => '61',
-        'suffix' => 'Plein1926 A'
+        'street' => '61, Plein',
+        'number' => '1926',
+        'suffix' => 'A'
     ],
 
     '123 Main Street Smallville, Idaho 12345' => [
-        'street' => null,
-        'number' => '123',
-        'suffix' => 'Main Street SmallvilleIdaho12345',
+        'street' => '123 Main Street Smallville, Idaho',
+        'number' => '12345',
+        'suffix' => null,
     ],
 
     '118 rue Marguerite' => [
-        'street' => null,
-        'number' => '118',
-        'suffix' => 'rue Marguerite',
+        'street' => '118 rue Marguerite',
+        'number' => null,
+        'suffix' => null,
     ]
 ];
-
-// Set correct address format.
-Parser::setAddressFormat([
-    Parser::T_STREET,
-    Parser::T_NUMBER,
-    Parser::T_SUFFIX,
-]);
 
 $parser = new Parser;
 foreach ($addresses as $address => $evaluated) {

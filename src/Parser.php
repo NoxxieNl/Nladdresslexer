@@ -14,7 +14,7 @@ class Parser
     /**
      * @var array<int,string>
      */
-    protected static $format = [];
+    public static $format = [];
 
     /**
      * @var \noxxienl\nladdresslexer\CharacterTypeLexer
@@ -44,13 +44,12 @@ class Parser
     {
         $this->lexer = new CharacterTypeLexer;
 
-        if (count(self::$format) == 0) {
-            self::$format = [
-                self::T_STREET,
-                self::T_NUMBER,
-                self::T_SUFFIX
-            ];
-        }
+        // Set default format.
+        self::$format = [
+            self::T_STREET,
+            self::T_NUMBER,
+            self::T_SUFFIX
+        ];
     }
 
     /**
@@ -62,7 +61,7 @@ class Parser
     {
         $this->string = preg_replace('/\s+/', ' ', $street.(! is_null($number) ? ' '.$number : null));
 
-        if (is_null($this->string)) {
+        if (is_null($this->string) || empty($this->string)) {
             throw new RuntimeException('Cannot parse a empty string.');
         }
 
@@ -193,14 +192,7 @@ class Parser
                         if ($peek['type'] == CharacterTypeLexer::T_SPACE) {
                             if (! is_null($numberPeek = $this->lexer->peek())) {
                                 if ($numberPeek['type'] == CharacterTypeLexer::T_NUMBER) {
-
-                                    // Check if the next number is the last segment of the string if it is the number we a are evaluating
-                                    // when it is the number we are evaluating is the housenumber.
-                                    // TODO: Fix this where Both "Plein 1924 12" and "Brugstraat 12 300" works (where 12 is the housenumber
-                                    // but the 300 is the suffix)
-                                    //if (! is_null($this->lexer->peekUntil(CharacterTypeLexer::T_SPACE))) {
-                                        $stillStreet = true;
-                                    //}
+                                    $stillStreet = true;
                                 }
                             }
                         }

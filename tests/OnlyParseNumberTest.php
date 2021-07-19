@@ -29,10 +29,12 @@ $addresses = [
     ]
 ];
 
-Parser::setAddressFormat([
-    Parser::T_NUMBER,
-    Parser::T_SUFFIX,
-]);
+beforeAll(function() {
+    Parser::setAddressFormat([
+        Parser::T_NUMBER,
+        Parser::T_SUFFIX,
+    ]);
+});
 
 $parser = new Parser;
 foreach ($addresses as $number => $evaluated) {
