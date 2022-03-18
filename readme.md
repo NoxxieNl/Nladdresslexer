@@ -18,7 +18,7 @@ Will be parsed to:
 Composer is used to install this package
 
 ```bash
-composer require noxxienl/nladdressparser
+composer require noxxienl/nladdresslexer
 ```
 
 ## Usage
