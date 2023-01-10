@@ -11,12 +11,12 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0|^8.1",
-        "doctrine/lexer": "^1.2"
+        "php": "^7.4|^8.0|^8.1|^8.2",
+        "doctrine/lexer": "^2.1"
     },
     "require-dev": {
         "pestphp/pest": "^1.0.0",
-        "phpstan/phpstan": "^0.12.92"
+        "phpstan/phpstan": "^1.9"
     },
     "autoload": {
         "psr-4": {
