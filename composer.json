@@ -16,7 +16,7 @@
     },
     "require-dev": {
         "pestphp/pest": "^1.0.0",
-        "phpstan/phpstan": "^0.12.92"
+        "phpstan/phpstan": "^1.9"
     },
     "autoload": {
         "psr-4": {
