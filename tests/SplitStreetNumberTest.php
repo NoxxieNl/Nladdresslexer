@@ -1,4 +1,5 @@
 <?php
+
 use noxxienl\nladdresslexer\Parser;
 
 $addresses = [
@@ -21,14 +22,14 @@ $addresses = [
         'street' => 'Hoogte Kadijk',
         'number' => '44',
         'suffix' => 'C',
-    ]
+    ],
 ];
 
-$parser = new Parser;
+$parser = new Parser();
 foreach ($addresses as $address => $evaluated) {
-    
+
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
-    it('can parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {
+    it('can parse address "'.$address.'"', function () use ($address, $evaluated, $parser) {
 
         list($number, $street) = explode(', ', $address);
         $parser->evaluate($street, $number);
@@ -40,7 +41,7 @@ foreach ($addresses as $address => $evaluated) {
     })->group('parse_split_street_housenumber');
 }
 
-afterAll(function() {
+afterAll(function () {
     Parser::setAddressFormat([
         Parser::T_STREET,
         Parser::T_NUMBER,

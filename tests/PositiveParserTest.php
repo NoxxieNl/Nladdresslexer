@@ -1,4 +1,5 @@
 <?php
+
 use noxxienl\nladdresslexer\Parser;
 
 $addresses = [
@@ -12,12 +13,12 @@ $addresses = [
         'number' => '2',
         'suffix' => null,
     ],
-    'Laan 1933 2'  => [
+    'Laan 1933 2' => [
         'street' => 'Laan 1933',
         'number' => '2',
         'suffix' => null,
     ],
-    '18 Septemberplein 12'  => [
+    '18 Septemberplein 12' => [
         'street' => '18 Septemberplein',
         'number' => '12',
         'suffix' => null,
@@ -41,8 +42,8 @@ $addresses = [
         'street' => '1e Constantijn Huigensstraat',
         'number' => '9',
         'suffix' => 'b',
-    ], 
-    'Maas-Waalweg 15'  => [
+    ],
+    'Maas-Waalweg 15' => [
         'street' => 'Maas-Waalweg',
         'number' => '15',
         'suffix' => null,
@@ -92,7 +93,7 @@ $addresses = [
         'number' => null,
         'suffix' => null,
     ],
-    'Nieuwe gracht 22zw /2'  => [
+    'Nieuwe gracht 22zw /2' => [
         'street' => 'Nieuwe gracht',
         'number' => '22',
         'suffix' => 'zw/2',
@@ -117,12 +118,12 @@ $addresses = [
         'number' => '77',
         'suffix' => '2 A',
     ],
-    'Lange Slachterijstraat 22 bus II'  => [
+    'Lange Slachterijstraat 22 bus II' => [
         'street' => 'Lange Slachterijstraat',
         'number' => '22',
         'suffix' => 'bus II',
     ],
-    'Hoogte Kadijk 44 - C'  => [
+    'Hoogte Kadijk 44 - C' => [
         'street' => 'Hoogte Kadijk',
         'number' => '44',
         'suffix' => 'C',
@@ -164,11 +165,11 @@ $addresses = [
     ],
 ];
 
-$parser = new Parser;
+$parser = new Parser();
 foreach ($addresses as $address => $evaluated) {
 
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
-    it('can parse address "'.$address.'"', function() use ($address, $evaluated, $parser) {
+    it('can parse address "'.$address.'"', function () use ($address, $evaluated, $parser) {
         $parser->evaluate($address);
 
         $this->assertEquals($evaluated['street'], $parser->getStreet());

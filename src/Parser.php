@@ -1,15 +1,15 @@
 <?php
+
 namespace noxxienl\nladdresslexer;
 
 use Exception;
-use noxxienl\nladdresslexer\CharacterTypeLexer;
 use RuntimeException;
 
 class Parser
 {
-    const T_STREET = 'street';
-    const T_NUMBER = 'number';
-    const T_SUFFIX = 'suffix';
+    public const T_STREET = 'street';
+    public const T_NUMBER = 'number';
+    public const T_SUFFIX = 'suffix';
 
     /**
      * @var array<int,string>
@@ -42,22 +42,22 @@ class Parser
 
     public function __construct()
     {
-        $this->lexer = new CharacterTypeLexer;
+        $this->lexer = new CharacterTypeLexer();
 
         // Set default format.
         self::$format = [
             self::T_STREET,
             self::T_NUMBER,
-            self::T_SUFFIX
+            self::T_SUFFIX,
         ];
     }
 
     /**
      * Evaluate the given string.
-     * 
-     * @return boolean
+     *
+     * @return bool
      */
-    public function evaluate(string $street, ?string $number = null) : bool
+    public function evaluate(string $street, ?string $number = null): bool
     {
         $this->string = preg_replace('/\s+/', ' ', $street.(! is_null($number) ? ' '.$number : null));
 
@@ -84,31 +84,31 @@ class Parser
 
             // Move to next token.
             $this->lexer->moveNext();
-            
-            if ($this->lexer->token['type'] == CharacterTypeLexer::T_UNKNOWN) {
+
+            if ($this->lexer->token->type == CharacterTypeLexer::T_UNKNOWN) {
                 throw new RuntimeException(
                     sprintf(
                         'Could not define the character "%s" for parsing',
-                        $this->lexer->token['value']
+                        $this->lexer->token->value
                     )
                 );
             }
-        
-            if ($this->lexer->token['type'] == CharacterTypeLexer::T_DELMITER) {
+
+            if ($this->lexer->token->type == CharacterTypeLexer::T_DELMITER) {
                 $this->parseDelimiterToken();
             }
 
-            if ($this->lexer->token['type'] == CharacterTypeLexer::T_SPACE) {
+            if ($this->lexer->token->type == CharacterTypeLexer::T_SPACE) {
                 $this->parseSpaceToken();
             } else {
                 // Nothing special just add it to the current look up.
-                $this->splittedData[$this->lookUp][] = $this->lexer->token['value'];
+                $this->splittedData[$this->lookUp][] = $this->lexer->token->value;
 
                 // When the look up is the housenumber and the next token is a letter move to the next look up (suffix).
                 if (! is_null($lookahead = $this->lexer->lookahead)) {
-                    if ($lookahead['type'] == CharacterTypeLexer::T_LETTER && 
+                    if ($lookahead->type == CharacterTypeLexer::T_LETTER &&
                         $this->lookUp == self::T_NUMBER && $this->getNextLookupItem() == self::T_SUFFIX) {
-                        
+
                         $this->moveToNextLookUp();
                     }
                 }
@@ -123,7 +123,7 @@ class Parser
      *
      * @return void
      */
-    protected function resetLexer() : void
+    protected function resetLexer(): void
     {
         $this->lexer->reset();
 
@@ -139,20 +139,20 @@ class Parser
     /**
      * @return void
      */
-    protected function parseDelimiterToken() : void
+    protected function parseDelimiterToken(): void
     {
         if (! is_null($lookahead = $this->lexer->lookahead)) {
 
             // If there is space right behind a delimiter we assume the next item is going to be shown.
             // This is only when we are not in the street look up.
-            if ($lookahead['type'] == CharacterTypeLexer::T_SPACE && $this->lookUp != self::T_STREET) {
+            if ($lookahead->type == CharacterTypeLexer::T_SPACE && $this->lookUp != self::T_STREET) {
                 $this->moveToNextLookUp();
                 $this->lexer->moveNextBy(2);
             }
 
-            // When we are in the street lookup and a delimiter string is found with a space behind it BUT the next sequence is not the 
+            // When we are in the street lookup and a delimiter string is found with a space behind it BUT the next sequence is not the
             // housenumber, then just continue collecting tokens, otherwise move on to the next look up.
-            elseif ($lookahead['type'] == CharacterTypeLexer::T_SPACE && $this->lookUp == self::T_STREET) {
+            elseif ($lookahead->type == CharacterTypeLexer::T_SPACE && $this->lookUp == self::T_STREET) {
                 if (! $this->parseSpaceToken(true)) {
                     $this->moveToNextLookUp();
                     $this->lexer->moveNextBy(2);
@@ -168,15 +168,15 @@ class Parser
     }
 
     /**
-     * @var bool $returnBool
+     * @var bool
      * @return mixed
      */
-    protected function parseSpaceToken(bool $returnBool  = false)
+    protected function parseSpaceToken(bool $returnBool = false)
     {
         $stillStreet = false;
 
         if (! is_null($lookahead = $this->lexer->lookahead)) {
-            if ($lookahead['type'] !== CharacterTypeLexer::T_LETTER) {
+            if ($lookahead->type !== CharacterTypeLexer::T_LETTER) {
 
                 // When the look up is street check if the next tokens are letters or numbers or a combination.
                 // This is done for streets like "Plein 1945 12", it searches if there are more sequences of numbers.
@@ -188,10 +188,10 @@ class Parser
                         if (is_null($peek = $this->lexer->peek())) {
                             break;
                         }
-                        
-                        if ($peek['type'] == CharacterTypeLexer::T_SPACE) {
+
+                        if ($peek->type == CharacterTypeLexer::T_SPACE) {
                             if (! is_null($numberPeek = $this->lexer->peek())) {
-                                if ($numberPeek['type'] == CharacterTypeLexer::T_NUMBER) {
+                                if ($numberPeek->type == CharacterTypeLexer::T_NUMBER) {
                                     $stillStreet = true;
                                 }
                             }
@@ -209,7 +209,7 @@ class Parser
                 if (! $stillStreet) {
                     $this->moveToNextLookUp();
                 } else {
-                    $this->splittedData[$this->lookUp][] = $this->lexer->token['value'];
+                    $this->splittedData[$this->lookUp][] = $this->lexer->token->value;
                     $stillStreet = false;
                 }
             } else {
@@ -217,7 +217,7 @@ class Parser
                 if ($this->lookUp == self::T_NUMBER) {
                     $this->moveToNextLookUp();
                 } else {
-                    $this->splittedData[$this->lookUp][] = $this->lexer->token['value'];
+                    $this->splittedData[$this->lookUp][] = $this->lexer->token->value;
                 }
             }
         }
@@ -228,7 +228,7 @@ class Parser
      *
      * @return void
      */
-    protected function moveToNextLookUp() : void
+    protected function moveToNextLookUp(): void
     {
         $this->lookUp = $this->getNextLookupItem();
     }
@@ -238,7 +238,7 @@ class Parser
      *
      * @return string
      */
-    protected function getNextLookupItem() : string
+    protected function getNextLookupItem(): string
     {
         if (is_null($this->lookUp)) {
             return self::$format[0];
@@ -262,7 +262,7 @@ class Parser
     /**
      * @return string|null
      */
-    protected function getPreviousLookupItem() : ?string
+    protected function getPreviousLookupItem(): ?string
     {
         if (is_null($this->lookUp)) {
             return null;
@@ -286,7 +286,7 @@ class Parser
     /**
      * @return string|null
      */
-    public function getStreet() : ?string
+    public function getStreet(): ?string
     {
         return is_null($this->splittedData[self::T_STREET])
                ? null
@@ -294,9 +294,9 @@ class Parser
     }
 
     /**
-     * @return integer|null
+     * @return int|null
      */
-    public function getNumber() : ?int
+    public function getNumber(): ?int
     {
         return is_null($this->splittedData[self::T_NUMBER])
                ? null
@@ -306,7 +306,7 @@ class Parser
     /**
      * @return string|null
      */
-    public function getSuffix() : ?string
+    public function getSuffix(): ?string
     {
         return is_null($this->splittedData[self::T_SUFFIX])
                ? null
@@ -316,7 +316,7 @@ class Parser
     /**
      * @return string|null
      */
-    public function getOriginalString() : ?string
+    public function getOriginalString(): ?string
     {
         return $this->string;
     }
@@ -325,13 +325,13 @@ class Parser
      * @param array<int,string> $format
      * @return void
      */
-    public static function setAddressFormat(array $format) : void
+    public static function setAddressFormat(array $format): void
     {
         foreach ($format as $item) {
             if (! in_array($item, [
                 self::T_STREET,
                 self::T_NUMBER,
-                self::T_SUFFIX
+                self::T_SUFFIX,
             ])) {
                 throw new Exception('Invalid address format specified.');
             }

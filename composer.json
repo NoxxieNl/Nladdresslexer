@@ -11,12 +11,14 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0|^8.1|^8.2",
-        "doctrine/lexer": "^2.1"
+        "php": "^8.1",
+        "doctrine/lexer": "^3.0"
     },
     "require-dev": {
-        "pestphp/pest": "^1.0.0",
-        "phpstan/phpstan": "^1.9"
+        "pestphp/pest": "^2.0",
+        "phpstan/phpstan": "^1.10",
+        "symfony/var-dumper": "^6.3",
+        "friendsofphp/php-cs-fixer": "^3.23"
     },
     "autoload": {
         "psr-4": {
@@ -27,5 +29,11 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "analyse": "vendor\\bin\\phpstan analyse",
+        "test": "vendor\\bin\\pest",
+        "test-coverage": "vendor\\bin\\pest --coverage --coverage-html coverage",
+        "fixer": "vendor\\bin\\php-cs-fixer fix --config .php_cs.dist.php"
     }
 }

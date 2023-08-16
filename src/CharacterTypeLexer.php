@@ -1,22 +1,23 @@
 <?php
+
 namespace noxxienl\nladdresslexer;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 
 class CharacterTypeLexer extends AbstractLexer
 {
-    const T_LETTER = 1;
-    CONST T_NUMBER = 2;
-    CONST T_SPACE = 3;
-    CONST T_DELMITER = 4;
-    CONST T_ENDING = 5;
+    public const T_LETTER = 1;
+    public const T_NUMBER = 2;
+    public const T_SPACE = 3;
+    public const T_DELMITER = 4;
+    public const T_ENDING = 5;
 
-    CONST T_UNKNOWN = 99;
+    public const T_UNKNOWN = 99;
 
     /**
      * @return array<int,string>
      */
-    protected function getCatchablePatterns() : array
+    protected function getCatchablePatterns(): array
     {
         return [];
     }
@@ -24,7 +25,7 @@ class CharacterTypeLexer extends AbstractLexer
     /**
      * @return array<int,string>
      */
-    protected function getNonCatchablePatterns() : array
+    protected function getNonCatchablePatterns(): array
     {
         return [];
     }
@@ -39,29 +40,17 @@ class CharacterTypeLexer extends AbstractLexer
     {
         if (preg_match('/\p{L}+/', $value)) {
             return self::T_LETTER;
-        }
-
-        elseif (preg_match('/[0-9]/', $value)) {
+        } elseif (preg_match('/[0-9]/', $value)) {
             return self::T_NUMBER;
-        }
-
-        elseif (preg_match('/[:\-,]/', $value)) {
+        } elseif (preg_match('/[:\-,]/', $value)) {
             return self::T_DELMITER;
-        }
-
-        elseif (preg_match('/[\'.\/\(\)]/', $value)) {
+        } elseif (preg_match('/[\'.\/\(\)]/', $value)) {
             return self::T_ENDING;
-        }
-
-        elseif ($value === ' ') {
+        } elseif ($value === ' ') {
             return self::T_SPACE;
-        }
-
-        elseif (! preg_match('/\p{L}+/', $value) && ! preg_match('/[0-9]/', $value)) {
+        } elseif (! preg_match('/\p{L}+/', $value) && ! preg_match('/[0-9]/', $value)) {
             return self::T_LETTER;
-        }
-
-        else {
+        } else {
             return self::T_UNKNOWN;
         }
     }
@@ -69,10 +58,11 @@ class CharacterTypeLexer extends AbstractLexer
     /**
      * Move the pointer the given amount of items.
      *
-     * @param integer $amount
+     * @param int $amount
      * @return void
      */
-    public function moveNextBy(int $amount) {
+    public function moveNextBy(int $amount)
+    {
         for ($i = 1; $i <= $amount; $i++) {
             $this->moveNext();
         }

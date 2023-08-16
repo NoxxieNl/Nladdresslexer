@@ -1,4 +1,5 @@
 <?php
+
 use noxxienl\nladdresslexer\Parser;
 
 $addresses = [
@@ -26,21 +27,21 @@ $addresses = [
         'street' => null,
         'number' => '46',
         'suffix' => 'a BOVEN',
-    ]
+    ],
 ];
 
-beforeAll(function() {
+beforeAll(function () {
     Parser::setAddressFormat([
         Parser::T_NUMBER,
         Parser::T_SUFFIX,
     ]);
 });
 
-$parser = new Parser;
+$parser = new Parser();
 foreach ($addresses as $number => $evaluated) {
-    
+
     /** @method TestCall|TestCase|mixed it(string $description, Closure $closure = null) */
-    it('can parse number "'.$number.'"', function() use ($number, $evaluated, $parser) {
+    it('can parse number "'.$number.'"', function () use ($number, $evaluated, $parser) {
         $parser->evaluate($number);
 
         $this->assertEquals($evaluated['street'], $parser->getStreet());
@@ -50,7 +51,7 @@ foreach ($addresses as $number => $evaluated) {
     })->group('parse_only_number');
 }
 
-afterAll(function() {
+afterAll(function () {
     Parser::setAddressFormat([
         Parser::T_STREET,
         Parser::T_NUMBER,

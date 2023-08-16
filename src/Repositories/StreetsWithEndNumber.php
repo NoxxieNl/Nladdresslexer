@@ -1,10 +1,11 @@
 <?php
+
 namespace noxxienl\nladdresslexer\Repositories;
 
 class StreetsWithEndNumber
 {
     /**
-     * @var array<int,string> $streets
+     * @var array<int,string>
      */
     protected static $streets = [
         'plein \'40-\'45',
@@ -665,16 +666,16 @@ class StreetsWithEndNumber
         'de veste 12',
         'windmolenpad a27',
         'rijksweg n11',
-        'rijksweg 24'
+        'rijksweg 24',
     ];
 
     /**
      * Returns if the given streetname is a street with a number on the end.
      *
      * @param string $value
-     * @return boolean
+     * @return bool
      */
-    public static function is(string $value) : bool
+    public static function is(string $value): bool
     {
         return in_array(strtolower($value), self::$streets);
     }
