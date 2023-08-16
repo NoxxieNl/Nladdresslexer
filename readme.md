@@ -21,6 +21,20 @@ Composer is used to install this package
 composer require noxxienl/nladdresslexer
 ```
 
+## Upgrade from 1.x
+
+2.x requires a minimum of php `8.1` to run. Support for php 8 and lower has been dropped.
+
+To upgrade from 1.x simply update your composer file with
+```json
+"noxxienl/nladdresslexer": "^2.0"
+```
+
+and run:
+```bash
+composer update noxxienl/nladdresslexer
+```
+
 ## Usage
 
 ```php
